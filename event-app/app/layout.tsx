@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "LinxUp",
   description: "LinxUp is a platform for people to meet though shared interest and local events.",
  icons: {
+  icon: '/assets/images/logo.svg'
 }
 };
 
@@ -22,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} antialiased`}>
+      <body className={`${poppins.variable} antialiased`}>
         {children}
       </body>
     </html>

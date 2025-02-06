@@ -20,7 +20,7 @@ const Posts = () => {
         </Typography>
       </StyledAppBar>
 
-      <h1>POST</h1>
+      <h1 className={classes.something}>POST</h1>
       <Post />
       <Post />
     </>

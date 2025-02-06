@@ -1,13 +1,14 @@
-import React from 'react';
-import { Container, AppBar, Typography, Grow, Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import React, { useState, useEffect } from 'react';
+import { Container, AppBar, Typography, Grow, Grid, Box } from '@mui/material';
+import { useDispatch } from 'react-redux';
+
 import Posts from './components/Posts/Posts';
 import Form from './components/Form/Form';
+import { getPosts } from './actions/posts';  // fetching posts
+import events from './images/events.png'; // image
+import { styled } from '@mui/material/styles';  
 
-// images folder
-import events from './images/events.png';
-
-// Styled Components 
+// Styled components using MUI v5
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   borderRadius: 15,
   margin: '30px 0',
@@ -27,24 +28,31 @@ const StyledImage = styled('img')({
 });
 
 const App = () => {
+  const [currentId, setCurrentId] = useState(0);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPosts()); // Dispatch action to get posts
+  }, [currentId, dispatch]); 
+
   return (
     <Container maxWidth="lg">
       <StyledAppBar position="static" color="inherit">
         <StyledTypography variant="h2" align="center">
-        LinxUp
+          Events
         </StyledTypography>
         <StyledImage src={events} alt="icon" height="60" />
       </StyledAppBar>
       <Grow in>
         <Container>
-          <Box display="flex" justifyContent="space-between" alignItems="stretch" spacing={3}>
-            <Box flex={1} p={3}>  
-              <Posts />
-            </Box>
-            <Box flex={1} p={3}>  
-              <Form  />
-            </Box>
-          </Box>
+          <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
+            <Grid item xs={12} sm={7}>
+              <Posts setCurrentId={setCurrentId} />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Form currentId={currentId} setCurrentId={setCurrentId} />
+            </Grid>
+          </Grid>
         </Container>
       </Grow>
     </Container>

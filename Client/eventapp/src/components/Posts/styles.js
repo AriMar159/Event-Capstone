@@ -1,17 +1,14 @@
-import { styled } from '@mui/material/styles';
-import { Box } from '@mui/material';
+import { makeStyles } from '@material-ui/core/styles';
 
-const MainContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
+export default makeStyles((theme) => ({
+  mainContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  smMargin: {
+    margin: theme.spacing(1),
+  },
+  actionDiv: {
+    textAlign: 'center',
+  },
 }));
-
-const SmMargin = styled(Box)(({ theme }) => ({
-  margin: theme.spacing(1),
-}));
-
-const ActionDiv = styled(Box)({
-  textAlign: 'center',
-});
-
-export { MainContainer, SmMargin, ActionDiv };

@@ -1,30 +1,23 @@
 import React from 'react';
-import { AppBar, Typography } from '@mui/material'; // Import AppBar and Typography
-import { styled } from '@mui/material/styles';
+import { Grid, CircularProgress } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+
 import Post from './Post/Post';
+import useStyles from './styles';
 
-// Use `styled` to create a customized AppBar
-const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  backgroundColor: 'rgba(0,183,255, 1)',
-  borderRadius: 15,
-  marginBottom: theme.spacing(3),
-}));
+const Posts = ({ setCurrentId }) => {
+  const posts = useSelector((state) => state.posts);
+  const classes = useStyles();
 
-const Posts = () => {
   return (
-    <>
-      {/* Use the styled AppBar */}
-      <StyledAppBar position="static" color="inherit">
-        <Typography variant="h6" align="center">
-          Posts
-        </Typography>
-      </StyledAppBar>
-
-      <h1 className={classes.something}>POST</h1>
-      <Post />
-      <Post />
-    </>
+    !posts.length ? <CircularProgress /> : (
+      <Grid className={classes.container} container alignItems="stretch" spacing={3}>
+        {posts.map((post) => (
+          <Grid key={post._id} item xs={12} sm={6} md={6}>
+            <Post post={post} setCurrentId={setCurrentId} />
+          </Grid>
+        ))}
+      </Grid>
+    )
   );
 };
-
-export default Posts;
